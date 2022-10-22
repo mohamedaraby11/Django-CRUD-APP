@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crud Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  </head>
+  <body>
+
+<h2 class="alert alert-warning text-center">Simple Crud Application</h2>
+    <div class="container mt-3">
+
+        {% for message in messages%}
+        <p class="alert alert-success mt-3">{{message}}</p>
+        {% endfor %}
+
+        {% if sel_item %}
+
+        <form method="POST" action="{% url 'update_item' sel_item.id %}">
+            {% csrf_token %}
+           <div class="form-group mb-3">
+             <label class="form-label">Item Name</label>
+             <input type="text" class="form-control"value="{{sel_item.name}}" name="name" placeholder="Enter Item Name" >
+           </div>
+
+           <div class="form-group mb-3">
+               <label class="form-label">Descripe </label>
+               <input type="text" class="form-control" value="{{sel_item.description}}" name="description" placeholder="Descripe Item Here" >
+             </div>
+             description
+           
+           <div class="text-center mt-3">
+           <button type="submit" class="btn btn-success">Update</button>
+       </div>
+         </form>
+
+
+
+        {% else %}
+
+
+        <form method="POST" action="{% url 'add_item'%}">
+             {% csrf_token %}
+            <div class="form-group mb-3">
+              <label class="form-label">Item Name</label>
+              <input type="text" class="form-control" name="name" placeholder="Enter Item Name" >
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Descripe </label>
+                <input type="text" class="form-control" name="description" placeholder="Descripe Item Here" >
+              </div>
+              
+            
+            <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+          </form>
+          {% endif %}
+
+          <div class="mt-5">
+
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Sr.No</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Item Descrption</th>
+                    <th scope="col">Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in item_list %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.description}}</td>
+                    <td>
+                        <a href="{% url 'edit_item' i.id %}" class="btn btn-warning">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_item' i.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+
+          </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</body>
+</html>
